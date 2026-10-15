@@ -14,6 +14,7 @@ import { styles } from "./styles";
 
 import { Categories } from "@/components/categories";
 import { Link } from "@/components/link";
+import { Option } from "@/components/option"; 
 
 export default function Index() {
   return (
@@ -48,11 +49,22 @@ export default function Index() {
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalCategory}>Cursos</Text>
-              <EvilIcons name="close" size={20} color={colors.gray[400]} />
+              <TouchableOpacity>
+                <EvilIcons
+                  name="close"
+                  size={20}
+                  color={colors.gray[400]}
+                />
+              </TouchableOpacity>
             </View>
 
             <Text style={styles.modalLinkName}>FreecodeCamp</Text>
             <Text style={styles.modalUrl}>https://www.freecodecamp.org/</Text>
+
+            <View style={styles.modalFooter}>
+              <Option name="Apagar" icon="trash" variant="secondary" />
+              <Option name="Abrir" icon="globe" />
+            </View>
           </View>
         </View>
       </Modal>
