@@ -9,6 +9,8 @@ import {
 
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 
+import { router } from "expo-router";
+
 import { colors } from "@/styles/colors";
 import { styles } from "./styles";
 
@@ -22,7 +24,7 @@ export default function Index() {
       <View style={styles.header}>
         <Image source={require("@/assets/logo.png")} style={styles.logo} />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.navigate("/add")}>
           <EvilIcons name="plus" size={42} color={colors.green[300]} />
         </TouchableOpacity>
       </View>
