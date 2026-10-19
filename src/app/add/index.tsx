@@ -7,7 +7,7 @@ import { styles } from "./styles";
 import { colors } from "@/styles/colors";
 import { Categories } from "@/components/categories";
 
-import { LinkStorage } from "@/storage/links-storage";
+import { linkStorage } from "@/storage/links-storage";
 
 import { Input } from "@/components/input";
 import { Button } from "@/components/button"; 
@@ -30,16 +30,16 @@ export default function Add() {
           return Alert.alert("Link", "Adicione a Url")
         }
 
-        await LinkStorage.save({
+        await linkStorage.save({
           id: new Date().getTime().toString(),
           name,
           url,
           category
         })
 
-        const data = await LinkStorage.get()
-        console.log(data)
-
+        Alert.alert("Sucesso", "Novo link adicionado", [
+          { text: "Concluído", onPress: () => router.back() }
+        ])
     } catch (error) {
       Alert.alert("Erro", "Não foi possível salvar o link")
       console.log(error)
