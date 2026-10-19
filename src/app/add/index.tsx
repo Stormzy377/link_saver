@@ -6,6 +6,9 @@ import { useState } from "react";
 import { styles } from "./styles";
 import { colors } from "@/styles/colors";
 import { Categories } from "@/components/categories";
+
+import { LinkStorage } from "@/storage/links-storage";
+
 import { Input } from "@/components/input";
 import { Button } from "@/components/button"; 
 
@@ -15,7 +18,8 @@ export default function Add() {
     const [url, setUrl] = useState("")
 
     // Função para recuperar as informações
-    function handleAdd() {
+   async function handleAdd() {
+    try {
         if(!category) {
           return Alert.alert("Categoria", "Selecione a categoria")
         }
@@ -26,7 +30,20 @@ export default function Add() {
           return Alert.alert("Link", "Adicione a Url")
         }
 
-        console.log({ category, name, url })
+        await LinkStorage.save({
+          id: new Date().getTime().toString(),
+          name,
+          url,
+          category
+        })
+
+        const data = await LinkStorage.get()
+        console.log(data)
+
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível salvar o link")
+      console.log(error)
+    }
     }
 
 
@@ -43,7 +60,7 @@ export default function Add() {
 
           <View style={styles.form}>
             <Input placeholder="Nome do link" onChangeText={setName} autoCorrect={false} />
-            <Input placeholder="Url" onChangeText={setUrl} autoCorrect={false} />
+            <Input placeholder="Url" onChangeText={setUrl} autoCorrect={false}  autoCapitalize="none" />
             <Button title="Adicionar" onPress={handleAdd} />
           </View>
 
